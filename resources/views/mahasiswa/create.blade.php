@@ -40,12 +40,13 @@
                     <div class="row mb-3">
                         <label for="inputPassword3" class="col-sm-2 col-form-label">Program Studi</label>
                         <div class="col-sm-10">
-                            <select id="nama_prodi" name="nama_prodi" class="form-select" required>
+                            <select id="prodi_id" name="prodi_id" class="form-select">
                                 <option selected disabled>Pilih Program Studi Kamu...</option>
                                 @foreach ($prodis as $prodi)
-                                <option value="{{ $prodi->nama_prodi }}">{{ $prodi->nama_prodi }}</option>
+                                <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
                                 @endforeach
                             </select>
+
                         </div>
                     </div>
                     <div class="text-end">

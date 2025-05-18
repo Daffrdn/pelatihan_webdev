@@ -21,8 +21,9 @@ class ProdiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_prodi' => 'required|string|max:255',
+            'nama_prodi' => 'required|string|unique:prodis,nama_prodi',
         ]);
+        
 
         Prodi::create($request->all());
         

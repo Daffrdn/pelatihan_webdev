@@ -11,7 +11,7 @@ class MahasiswaController extends Controller
     public function index()
     {
         // Ambil data mahasiswa sekaligus relasi prodi (eager loading)
-        $mahasiswas = Mahasiswa::all();
+        $mahasiswas = Mahasiswa::with('prodi')->get();
         return view('mahasiswa.index', compact('mahasiswas'));
     }
 
@@ -27,11 +27,11 @@ class MahasiswaController extends Controller
         $request->validate([
             'nama_mahasiswa' => 'required|string|max:255',
             'no_wa' => 'required|string|max:20',
-            'nama_prodi' => 'required|string|max:255',
+            'prodi_id' => 'required|exists:prodis,id',
             'umur' => 'required|integer|min:0',
         ]);
-        
-        Mahasiswa::create($request->all());        
+
+        Mahasiswa::create($request->all());
 
         return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa berhasil ditambahkan');
     }
@@ -47,7 +47,7 @@ class MahasiswaController extends Controller
         $request->validate([
             'nama_mahasiswa' => 'required|string|max:255',
             'no_wa' => 'required|string|max:20',
-            'nama_prodi' => 'required|string|max:255',
+            'prodi_id' => 'required|exists:prodis,id',
             'umur' => 'required|integer|min:0',
         ]);
 

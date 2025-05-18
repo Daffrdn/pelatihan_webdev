@@ -49,7 +49,7 @@
                                 <tr align="center">
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $mahasiswa->nama_mahasiswa }}</td>
-                                    <td>{{ $mahasiswa->nama_prodi }}</td>
+                                    <td>{{ $mahasiswa->prodi->nama_prodi }}</td>
                                     <td>{{ $mahasiswa->umur }}</td>
                                     <td>{{ $mahasiswa->no_wa }}</td>
                                     <td>

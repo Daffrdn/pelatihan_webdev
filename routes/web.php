@@ -18,19 +18,28 @@ use App\Models\Mahasiswa;
 */
 
 Route::get('/', function () {
-    $jumlahProdi = Prodi::count();
-    $jumlahMahasiswa = Mahasiswa::count();
-    $prodis = Prodi::all();
-    $jumlahMahasiswaPerProdi = Mahasiswa::select('nama_prodi', DB::raw('count(*) as total'))
-        ->groupBy('nama_prodi')
-        ->orderByDesc('total')
-        ->get();
 
-    $categories = $jumlahMahasiswaPerProdi->pluck('nama_prodi')->toArray();
+    $jumlahProdi      = Prodi::count();
+    $jumlahMahasiswa  = Mahasiswa::count();
 
-    $data = $jumlahMahasiswaPerProdi->pluck('total')->toArray();
-    
-    return view('dashboard', compact('jumlahProdi', 'jumlahMahasiswa', 'prodis', 'categories', 'data'));
+    /* ── Ambil jumlah mahasiswa per prodi + nama prodi ── */
+    $jumlahMahasiswaPerProdi = Mahasiswa::select('prodis.nama_prodi as nama_prodi', DB::raw('COUNT(*) AS total'))
+    ->join('prodis', 'prodis.id', '=', 'mahasiswas.prodi_id')
+    ->groupBy('prodi_id', 'prodis.nama_prodi')
+    ->orderByDesc('total')
+    ->get();
+
+
+    /* ── Siapkan data untuk ApexCharts ── */
+    $categories = $jumlahMahasiswaPerProdi->pluck('nama_prodi')->toArray(); // ← nama prodi
+    $data       = $jumlahMahasiswaPerProdi->pluck('total')->toArray();      // ← jumlah
+
+    return view('dashboard', compact(
+        'jumlahProdi',
+        'jumlahMahasiswa',
+        'categories',
+        'data'
+    ));
 });
 
 Route::resource('mahasiswa', MahasiswaController::class);

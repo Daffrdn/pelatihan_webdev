@@ -13,7 +13,7 @@ class Mahasiswa extends Model
     public $incrementing = false; // non auto-increment
     protected $keyType = 'string'; // tipe primary key string (uuid)
 
-    protected $fillable = ['nama_mahasiswa', 'nama_prodi', 'no_wa', 'umur'];
+    protected $fillable = ['nama_mahasiswa', 'no_wa', 'prodi_id', 'umur'];
 
     protected static function boot()
     {
@@ -24,5 +24,10 @@ class Mahasiswa extends Model
                 $model->id = (string) Str::uuid();
             }
         });
+    }
+
+    public function prodi()
+    {
+        return $this->belongsTo(Prodi::class);
     }
 }

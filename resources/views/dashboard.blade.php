@@ -68,16 +68,15 @@
                                     new ApexCharts(document.querySelector("#reportsChart"), {
                                         chart: {
                                             height: 350,
-                                            type: 'bar', // Bar chart untuk melihat ranking
+                                            type: 'bar'
                                         },
                                         series: [{
                                             name: 'Jumlah Mahasiswa',
-                                            data: @json(
-                                                $data) // Data jumlah mahasiswa per prodi
+                                            data: @json($data) // [120, 88, 60, ...]
                                         }],
                                         xaxis: {
                                             categories: @json(
-                                                $categories), // Nama-nama prodi sebagai kategori
+                                                $categories) // ["Teknik Informatika", "Sistem Informasi", ...]
                                         },
                                         dataLabels: {
                                             enabled: true

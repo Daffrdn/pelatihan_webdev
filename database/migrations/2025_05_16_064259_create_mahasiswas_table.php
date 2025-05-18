@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('mahasiswas', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('nama_mahasiswa');
-            $table->string('nama_prodi');
-            $table->integer('no_wa');
+            $table->foreignUuid('prodi_id')->constrained('prodis')->onDelete('cascade');
+            $table->string('no_wa'); // sebelumnya mungkin $table->bigInteger('no_wa');
             $table->integer('umur');
             $table->timestamps();
         }); 
